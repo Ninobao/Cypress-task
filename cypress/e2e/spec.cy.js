@@ -1,17 +1,17 @@
-describe("My First Test", () => {
-  it("Gets, types and asserts", () => {
-    cy.visit("https://example.cypress.io");
+describe("GitHub web page basic test cases", () => {
+  it("Should send the correct data when the user logins", () => {
+    cy.visit("/login");
+    cy.intercept("POST", "https://github.com/session").as("loginRequest");
 
-    cy.contains("type").click();
+    cy.get("input#login_field").type("fakeuser@example.com");
+    cy.get("input#password").type("123_password");
+    cy.get('[data-signin-label="Sign in"]').click();
 
-    // Should be on a new URL which
-    // includes '/commands/actions'
-    cy.url().should("include", "/commands/actions");
+    cy.wait("@loginRequest").then((interception) => {
+      const params = new URLSearchParams(interception.request.body);
 
-    // Get an input, type into it
-    cy.get(".action-email").type("fake@email.com");
-
-    //  Verify that the value has been updated
-    cy.get(".action-email").should("have.value", "fake@email.com");
+      expect(params.get("login")).to.equal("fakeuser@example.com");
+      expect(params.get("password")).to.equal("123_password");
+    });
   });
 });

@@ -23,6 +23,8 @@ describe("GitHub web page basic test cases", () => {
   it("Should correctly query the search input in the URL", () => {
     cy.visit("/");
 
+    cy.intercept("GET", "/search*").as("searchInput");
+
     Cypress.Commands.add("searchInSearchBar", (input) => {
       cy.get('button[aria-label="Toggle navigation"] span.Button-content').click();
       cy.get(".search-input-container").click();
@@ -31,6 +33,25 @@ describe("GitHub web page basic test cases", () => {
 
     cy.searchInSearchBar("gitignore");
 
-    cy.url().should("include", "search?q=gitignore");
+    cy.wait("@searchInput").then((intercept) => {
+      expect(intercept.request.url).to.include("q=gitignore");
+    });
+  });
+
+  it("Should correctly navigate to the Pricing page", () => {
+    cy.visit("/");
+
+    cy.intercept("GET", "https://github.com/pricing").as("navigateToPricing");
+
+    Cypress.Commands.add("clickOnMenuElement", (input) => {
+      cy.get('button[aria-label="Toggle navigation"] span.Button-content').click();
+      cy.contains(input).click();
+    });
+
+    cy.clickOnMenuElement("Pricing");
+
+    cy.wait("@navigateToPricing").then((intercept) => {
+      expect(intercept.request.url).to.equal("https://github.com/pricing");
+    });
   });
 });

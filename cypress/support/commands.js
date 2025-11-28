@@ -16,6 +16,6 @@ Cypress.Commands.add("searchInSearchbar", (input) => {
 });
 
 Cypress.Commands.add("clickOnMenuElement", (input) => {
-  cy.get('button[aria-label="Toggle navigation"] span.Button-content').click();
+  cy.get(dashboardPage.toggleNavigation).click();
   cy.contains(input).click();
 });

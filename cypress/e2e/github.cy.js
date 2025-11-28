@@ -1,7 +1,8 @@
 import Login from "../Pages/login-page";
+import Repository from "../Pages/repository-page";
 
 describe("GitHub web page basic test cases", () => {
-  it.only("Should send the correct credentials when the user logins", () => {
+  it("Should send the correct credentials when the user logins", () => {
     const loginPage = new Login();
 
     cy.visit("/login");
@@ -57,7 +58,9 @@ describe("GitHub web page basic test cases", () => {
   });
 
   it("The repository page should contain a README file", () => {
+    const repositoryPage = new Repository();
+
     cy.visit("/github/gitignore");
-    cy.get('[data-content="README"]').should("exist");
+    cy.get(repositoryPage.readme).should("exist");
   });
 });

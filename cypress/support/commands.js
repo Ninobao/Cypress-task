@@ -1,6 +1,10 @@
+import Login from "../Pages/login-page";
+
+const loginPage = new Login();
+
 Cypress.Commands.add("enterCredentialsLogin", (email, password) => {
-  cy.get("input#login_field").type(email);
-  cy.get("input#password").type(password);
+  cy.get(loginPage.email).type(email);
+  cy.get(loginPage.password).type(password);
 });
 
 Cypress.Commands.add("searchInSearchbar", (input) => {

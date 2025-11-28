@@ -1,12 +1,16 @@
+import Login from "../Pages/login-page";
+
 describe("GitHub web page basic test cases", () => {
-  it("Should send the correct credentials when the user logins", () => {
+  it.only("Should send the correct credentials when the user logins", () => {
+    const loginPage = new Login();
+
     cy.visit("/login");
 
     cy.intercept("POST", "https://github.com/session").as("loginRequest");
 
     cy.enterCredentialsLogin("fakeuser@example.com", "123_password");
 
-    cy.get('[data-signin-label="Sign in"]').click();
+    cy.get(loginPage.signIn).click();
 
     cy.wait("@loginRequest").then((interception) => {
       const params = new URLSearchParams(interception.request.body);

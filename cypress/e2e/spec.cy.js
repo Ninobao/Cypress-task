@@ -66,4 +66,9 @@ describe("GitHub web page basic test cases", () => {
       expect(intercept.response.body).to.have.property("branches");
     });
   });
+
+  it("The repository page should contain a README file", () => {
+    cy.visit("/github/gitignore");
+    cy.get('[data-content="README"]').should("exist");
+  });
 });

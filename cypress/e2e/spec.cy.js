@@ -54,4 +54,16 @@ describe("GitHub web page basic test cases", () => {
       expect(intercept.request.url).to.equal("https://github.com/pricing");
     });
   });
+
+  it("Should retrieve the branches count from a repository", () => {
+    cy.visit("/github/gitignore");
+
+    cy.intercept("GET", "https://github.com/github/gitignore/branch-and-tag-count").as(
+      "getBranches"
+    );
+
+    cy.wait("@getBranches").then((intercept) => {
+      expect(intercept.response.body).to.have.property("branches");
+    });
+  });
 });

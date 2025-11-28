@@ -1,6 +1,8 @@
 import Login from "../Pages/login-page";
+import Dashboard from "../Pages/dashboard-page";
 
 const loginPage = new Login();
+const dashboardPage = new Dashboard();
 
 Cypress.Commands.add("enterCredentialsLogin", (email, password) => {
   cy.get(loginPage.email).type(email);
@@ -8,9 +10,9 @@ Cypress.Commands.add("enterCredentialsLogin", (email, password) => {
 });
 
 Cypress.Commands.add("searchInSearchbar", (input) => {
-  cy.get('button[aria-label="Toggle navigation"] span.Button-content').click();
-  cy.get(".search-input-container").click();
-  cy.get('[data-target="query-builder.input"]').type(`${input}{enter}`);
+  cy.get(dashboardPage.toggleNavigation).click();
+  cy.get(dashboardPage.searchInputContainer).click();
+  cy.get(dashboardPage.searchInput).type(`${input}{enter}`);
 });
 
 Cypress.Commands.add("clickOnMenuElement", (input) => {

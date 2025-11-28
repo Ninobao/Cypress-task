@@ -1,0 +1,7 @@
+class Dashboard {
+  toggleNavigation = 'button[aria-label="Toggle navigation"] span.Button-content';
+  searchInputContainer = ".search-input-container";
+  searchInput = '[data-target="query-builder.input"]';
+}
+
+export default Dashboard;

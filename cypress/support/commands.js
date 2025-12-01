@@ -1,8 +1,8 @@
 import Login from "../Pages/login-page";
-import Dashboard from "../Pages/dashboard-page";
+import Home from "../Pages/home-page";
 
 const loginPage = new Login();
-const dashboardPage = new Dashboard();
+const homePage = new Home();
 
 Cypress.Commands.add("enterCredentialsLogin", (email, password) => {
   cy.get(loginPage.email).type(email);
@@ -10,12 +10,12 @@ Cypress.Commands.add("enterCredentialsLogin", (email, password) => {
 });
 
 Cypress.Commands.add("searchInSearchbar", (input) => {
-  cy.get(dashboardPage.toggleNavigation).click();
-  cy.get(dashboardPage.searchInputContainer).click();
-  cy.get(dashboardPage.searchInput).type(`${input}{enter}`);
+  cy.get(homePage.toggleNavigation).click();
+  cy.get(homePage.searchInputContainer).click();
+  cy.get(homePage.searchInput).type(`${input}{enter}`);
 });
 
 Cypress.Commands.add("clickOnMenuElement", (input) => {
-  cy.get(dashboardPage.toggleNavigation).click();
+  cy.get(homePage.toggleNavigation).click();
   cy.contains(input).click();
 });

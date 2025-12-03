@@ -15,7 +15,7 @@ describe("GitHub web page basic test cases", () => {
 
     cy.intercept("POST", "https://github.com/session").as("loginRequest");
 
-    cy.enterCredentialsLogin("fakeuser@example.com", "123_password");
+    cy.enterCredentialsLogin(Cypress.env("fakeuser"), Cypress.env("fakepassword"));
 
     cy.get(loginPage.signIn).click();
 
